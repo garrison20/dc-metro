@@ -6,18 +6,18 @@ from train_board import TrainBoard
 from metro_api import MetroApi, MetroApiOnFireException
 
 STATION_CODE = config['metro_station_code']
-TRAIN_GROUP = config['train_group']
 REFRESH_INTERVAL = config['refresh_interval']
 
-def refresh_trains() -> [dict]:
+def refresh_trains(train_group: str) -> [dict]:
 	try:
-		return MetroApi.fetch_train_predictions(STATION_CODE, TRAIN_GROUP)
+		return MetroApi.fetch_train_predictions(STATION_CODE, train_group)
 	except MetroApiOnFireException:
 		print('WMATA Api is currently on fire. Trying again later ...')
 		return None
 
 train_board = TrainBoard(refresh_trains)
 
+# MAIN LOOP. CALL WMATA API EVERY REFRESH_INTERVAL SECONDS.
 while True:
 	train_board.refresh()
 	time.sleep(REFRESH_INTERVAL)
