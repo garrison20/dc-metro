@@ -16,11 +16,12 @@ This project contains the source code to create your own Washington DC Metro sig
 
 ## Tools
 - A small phillips head screwdriver
+- Black Wire Ties - 4"
 - A hot glue gun _(optional)_
 - Tape _(optional)_
 
 ## Part 1: Prepare the Board
-1. Use a hot glue gun to cover the sharp screws on the right-hand side of the 64x32 LED matrix. This step is optional, but it will prevent wire chafing later on.
+1. Use a hot glue gun to cover the sharp screws on the right-hand side of the 64x32 LED matrix. This step is optional, but it will prevent wire chafing later on. Depending on the board you purchased, sharp screws may not be an issue.
 
     ![64x32 Matrix with Hot Glue on Screws](img/base-board.jpg)
 
@@ -41,16 +42,16 @@ This project contains the source code to create your own Washington DC Metro sig
 
     ![64x32 Matrix with Power Connected](img/connected-board.jpg)
 
-6. You can use masking tape (or painter's tape) to prevent the cables from flopping around.
+6. Use the wire ties to prevent the cables from flopping around.
 
-    ![64x32 Matrix with Cable Management](img/cable-management.jpg)
+    ![64x32 Matrix with Cable Management](img/backside-of-matrix-board.jpg)
 
 ## Part 2: Loading the Software
 1. Connect the board to your computer using a USB C cable. Double click the button on the board labeled _RESET_. The board should mount onto your computer as a storage volume, most likely named _MATRIXBOOT_.
-    
+
     ![Matrix Connected via USB](img/usb-connected.jpg)
 
-2. Flash your _Matrix Portal_ with the latest release of CircuitPython 6.
+2. Flash your _Matrix Portal_ with the latest release of CircuitPython 7.
     - Download the [firmware from Adafruit](https://circuitpython.org/board/matrixportal_m4/).
     - Drag the downloaded _.uf2_ file into the root of the _MATRIXBOOT_ volume.
     - The board will automatically flash the version of CircuitPython and remount as _CIRCUITPY_.
