@@ -121,7 +121,7 @@ If something goes wrong, take a peek at the [Adafruit Documentation](https://lea
 # Debugging
 ## Download
 To view print statements from your code, download a program that can connect to the matrix portal over serial.
-For Windows, Putty (https://www.putty.org/) is the simplest option. Other programs like putty could be used instead, of course.
+For Windows, [Putty](https://www.putty.org/) is the simplest option. Other programs like putty could be used instead, of course.
 For both Mac and Linux, search for the best Putty-like program that can connect to a serial port.
 
 ## Connect
