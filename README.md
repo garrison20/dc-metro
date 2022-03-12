@@ -42,9 +42,11 @@ This project contains the source code to create your own Washington DC Metro sig
 
     ![64x32 Matrix with Power Connected](img/connected-board.jpg)
 
-6. Use the wire ties to prevent the cables from flopping around.
+6. Use the wire ties to prevent the cables from flopping around. You could optionally use tape instead.
 
-    ![64x32 Matrix with Cable Management](img/backside-of-matrix-board.jpg)
+    ![64x32 Matrix with Wire Ties](img/backside-of-matrix-board.jpg)
+
+    ![64x32 Matrix with Cable Management](img/cable-management.jpg)
 
 ## Part 2: Loading the Software
 1. Connect the board to your computer using a USB C cable. Double click the button on the board labeled _RESET_. The board should mount onto your computer as a storage volume, most likely named _MATRIXBOOT_.
@@ -115,6 +117,27 @@ This project contains the source code to create your own Washington DC Metro sig
 
 ## Troubleshooting
 If something goes wrong, take a peek at the [Adafruit Documentation](https://learn.adafruit.com/adafruit-matrixportal-m4). Additionally, you can connect to the board using a serial connection to gain access to its logging.
+
+# Debugging
+## Download
+To view print statements from your code, download a program that can connect to the matrix portal over serial.
+For Windows, Putty is the simplest option. Other programs like putty could be used instead, of course.
+For both Mac and generic Linux, search for the best Putty-like program that can connect to a serial port.
+
+## Connect
+To connect to the matrix portal, simplify identify the COM port it occupies on your PC (in the case below, it's COM6), and
+set the baud rate to 9600.
+
+![Putty Connection](img/putty-matrix-portal.jpg)
+
+Once you connect to the matrix portal, you can start viewing output from the code.
+
+![Putty Print Statements](img/putty-matrix-portal-output.jpg)
+
+## Errors
+You can also view errors and their full traceback to its location in your code.
+
+![Putty Errors](img/putty-matrix-portal-error.jpg)
 
 # Appendix
 ## DC Metro Station Codes
