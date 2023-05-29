@@ -18,22 +18,22 @@ class MetroApi:
         retry_attempt = 0
         while retry_attempt < config['metro_api_retries']:
             try:
-                # ENSURE WE DON'T RETRY FAILED FETCH ATTEMPTS INDEFINITELY
+                # Ensure we don't retry failed fetch attempts indefinitely
                 retry_attempt += 1
 
-                # CONSTRUCT URL THAT WILL FETCH DATA FOR OUR DESIRED STATION
+                # Construct URL that will fetch data for our desired station
                 api_url = config['metro_api_url'] + station_code
-                # FETCH DATA FOR OUR DESIRED STATION FROM URL
+                # Fetch data for our desired station from URL
                 train_data = _network.fetch(api_url, headers={
                     'api_key': config['metro_api_key']
                 }).json()
 
                 print('Received response from WMATA api...')
 
-                # FILTER OUT TRAIN DATA SO ONLY OBJECTS FOR OUR DESIRED TRAIN GROUP ARE IN THE LIST
+                # Filter out train data so only objects for our desired train group are in the list
                 trains = filter(lambda t: t['Group'] == group, train_data['Trains'])
 
-                # CONVERT TRAIN OBJECTS LIST TO CUSTOM LIST THAT ONLY HAS NEEDED
+                # Convert train objects list to custom list that only has what's needed 
                 normalized_results = list(map(MetroApi._normalize_train_response, trains))
 
                 return normalized_results
@@ -44,7 +44,7 @@ class MetroApi:
         raise MetroApiOnFireException()
 
     def _normalize_train_response(train: dict) -> dict:
-        # TAKE A JSON OBJECT FOR A SINGLE TRAIN AND EXTRACT ONLY THE NEEDED DATA
+        # Take a json object for a single train and extract only the needed data
         line = train['Line']
         destination = train['Destination']
         arrival = train['Min']
@@ -52,7 +52,7 @@ class MetroApi:
         if destination == 'No Passenger' or destination == 'NoPssenger' or destination == 'ssenger':
             destination = 'No Psngr'
 
-        # RETURN A SIMPLIED JSON OBJECT THAT CAN BE USED LATER FOR DISPLAYING TRAIN INFO
+        # Return a simplified json object that can be used later for displaying train info
         return {
             'line_color': MetroApi._get_line_color(line),
             'destination': destination,

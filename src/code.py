@@ -17,7 +17,7 @@ def refresh_trains(train_group: str) -> [dict]:
 
 train_board = TrainBoard(refresh_trains)
 
-# MAIN LOOP. CALL WMATA API EVERY REFRESH_INTERVAL SECONDS.
+# Main loop
 while True:
 	train_board.refresh()
 	time.sleep(REFRESH_INTERVAL)

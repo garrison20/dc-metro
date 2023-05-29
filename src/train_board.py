@@ -6,7 +6,10 @@ from adafruit_matrixportal.matrix import Matrix
 
 from config import config
 
-# Enum for clearly defining active track
+""" 
+Enum for clearly defining active track (i.e. a station that has two trains in opposing directions 
+pass through compared a station that only has one train pass through)
+"""
 class Track:
 	one = '1'
 	two = '2'
@@ -25,38 +28,42 @@ class TrainBoard:
 		]
 	"""
 	def __init__(self, get_new_data):
-		# FUNCTION CALLBACK FOR metro_api
+		# Function callback for metro_api
 		self.get_new_data = get_new_data
 
-		# TRACK VARS FOR MAINTAINING TRACK SELECTION STATE
+		# Track vars for maintaining track selection state
 		self.track = Track.one if config['default_track'] == Track.one else Track.two # Starting track if double-track, only track if single-track.
 		self.is_single_track = config['is_single_track']
 		self.double_track_switch_interval = config['double_track_switch_interval']
 		self.refresh_count = 0
 
-		# OBJECT THAT WILL DISPLAY OUR GROUPS
+		# Object that will display our groups
 		self.display = Matrix().display
 
-		# GROUP THAT HOLDS OUR OBJECTS (e.g. Rect()'s and Labels()'s)
+		# Group that hodls our objects (e.g. Rect()'s and Labels()'s)
 		self.parent_group = displayio.Group()
 
-		# BUILD THE HEADING LABEL ("LN DEST   MIN")
+		# Build the heading label ("LN DEST   MIN")
 		self.heading_label = Label(config['font'], anchor_point=(0,0), anchored_position=(0,.5))
 		self.heading_label.color = config['heading_color']
 		self.heading_label.text=config['heading_text']
 		self.parent_group.append(self.heading_label)
 
-		# MAIN LIST THAT HOLDS THE REFERENCE TO OUR THREE SUB-GROUPS OF TRAIN DATA (not an actual displayio.Group(), just a class with data)
+		# Main list that holds the reference to our three sub-groups of train data (not an actual displayio.Group(), just a class with data)
 		self.trains = []
 		for i in range(config['num_trains']):
 			self.trains.append(Train(self.parent_group, i))
 
-		# SHOW THE WHOLE BOARD (will default to loading screen on startup)
+		# Show the whole board (will default to loading screen on startup)
 		self.display.show(self.parent_group)
 
+	"""
+	The central method of the codebase. This is called on a fixed interval by code.py to get the update data 
+	and display it.	
+	"""
 	def refresh(self) -> bool:
 		print('Refreshing train information...')
-		# SET THE ACTIVE TRACK
+		# Set the active track
 		self._set_curr_track()
 
 		train_data = self.get_new_data(self.track)
@@ -86,12 +93,12 @@ class TrainBoard:
 		self.trains[index].update(line_color, destination, minutes)
 
 	def _set_curr_track(self):
-		# JUST RETURN ORIGINAL TRACK IF SINGLE TRACK WAS SET
+		# Just return original track if single track was set
 		if self.is_single_track:
 			return self.track
 
 		self.refresh_count += 1
-		# UPDATE TRACK IF WE'VE REACHED OUR REFRESH THRESHOLD
+		# Update track if we've reached our refresh threshold
 		if self.refresh_count >= self.double_track_switch_interval:
 			self.track = Track.one if self.track == Track.two else Track.two
 			self.refresh_count = 0
@@ -100,10 +107,10 @@ class TrainBoard:
 # Class for holding data that defines a line of train info
 class Train:
 	def __init__(self, parent_group, index):
-		# GET THE Y VALUE OF THE CURRENT TRAIN SECTION
+		# Get the y value of the current train section
 		y = (int)(config['character_height'] + config['text_padding']) * (index + 1)
 
-		# BUILD THE RECT THAT SHOWS THE COLOR COORDINATED WITH THE INCOMING TRAIN
+		# Build the rect that shows the color that's respective to the incoming train
 		self.line_rect = Rect(0, y, config['train_line_width'], config['train_line_height'], fill=config['loading_line_color'])
 
 		self.destination_label 			= Label(config['font'], anchor_point=(0,0))

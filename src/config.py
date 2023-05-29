@@ -19,8 +19,8 @@ config = {
 	'metro_station_code': 'D02',
 
 	# Default track to display.
-	# Will either show this one first if 'is_double_track' is True,
-	# otherwise it will only show this track.
+	# Will either show this one first if 'is_single_track' is True, 
+	# otherwise it will show both tracks.
 	'default_track': '1',
 
 	# Metro Train Group
@@ -28,11 +28,9 @@ config = {
 
 	# This value determines how many times train_board.refresh() needs to be called to switch between track 1 and track 2 if enabled.
 	# The wmata api reference at https://developer.wmata.com/docs/services/547636a6f9182302184cda78/operations/547636a6f918230da855363f
-	# specifies that "Next train arrival information is refreshed once every 20 to 30 seconds approximately," so setting the switch interval
-	# to change every fourth refresh with 5 seconds between refreshes (see 'refresh_interval') means that each track will be displayed for
-	# A MINIMUM of 20 seconds and we can hope that it will update at least once during its cycle (if it doesn't, then just turn the board off
-	# and then back on so that you change up the timing between wmata's internal updates and your api calls and hope for the best).
-	'double_track_switch_interval': 4,
+	# specifies that "Next train arrival information is refreshed once every 20 to 30 seconds approximately," so just refreshing every 
+	# 20 seconds three times per track should be good enough for the board to update 2-3 times per track per minute.
+	'double_track_switch_interval': 3,
 
 	# API Key for WMATA
 	'metro_api_key': '<Your WMATA API Key>',
@@ -44,7 +42,7 @@ config = {
 	#########################
 	'metro_api_url': 'https://api.wmata.com/StationPrediction.svc/json/GetPrediction/',
 	'metro_api_retries': 2,
-	'refresh_interval': 5, # 5 seconds is a good middle ground for updates, as the processor takes its sweet ol time
+	'refresh_interval': 20, # Note: 20 second interval is to roughly match WMATA update period, but the processor is also slow
 
 	# Display Settings
 	'matrix_width': 64,
@@ -60,10 +58,10 @@ config = {
 	# Default text loaded for each of the three "train" info lines
 	'loading_destination_text': 'Loading',
 	'loading_min_text': '---',
-	'loading_line_color': 0xFF00FF, # PURPLE
+	'loading_line_color': 0xFF00FF, # Purple
 
 	'heading_text': 'LN DEST   MIN',
-	'heading_color': 0xFF0000, # RED
+	'heading_color': 0xFF0000, # Red
 
 	'train_line_height': 6,
 	'train_line_width': 2,
