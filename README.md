@@ -115,18 +115,22 @@ This project contains the source code to create your own Washington DC Metro sig
 
 5. After you save this file, your board should refresh and connect to WMATA.
 
-## Troubleshooting
-If something goes wrong, take a peek at the [Adafruit Documentation](https://learn.adafruit.com/adafruit-matrixportal-m4). Additionally, you can connect to the board using a serial connection to gain access to its logging.
-
 # Debugging
-## Download
+
+If something goes wrong, take a peek at the [Adafruit Documentation](https://learn.adafruit.com/adafruit-matrixportal-m4). 
+
+**To inspect the code running on the board, follow the steps below:**
+
+### 1. Download a Terminal Emulator
+
 To view print statements from your code, download a program that can connect to the matrix portal over serial.
 For Windows, [Putty](https://www.putty.org/) is the simplest option. Other programs like putty could be used instead, of course.
-For both Mac and Linux, search for the best Putty-like program that can connect to a serial port.
+For both Mac and Linux, search for the best terminal emulator for your OS.
 
-## Connect
-To connect to the matrix portal, simplify identify the COM port it occupies on your PC (in the case below, it's COM6), and
-set the baud rate to 9600.
+### 2. Connect to the Board
+To connect to the matrix portal, identify the COM port it occupies on your PC (in the case below, it's COM6), and
+set the baud rate to 9600. If you have multiple USB connections to your PC, this may require trial and error 
+(or just watch which COM port pops up in the Device Manager when you plug in the matrix portal).
 
 ![Putty Connection](img/putty-matrix-portal.jpg)
 
@@ -134,8 +138,7 @@ Once you connect to the matrix portal, you can start viewing output from the cod
 
 ![Putty Print Statements](img/putty-matrix-portal-output.jpg)
 
-## Errors
-You can also view errors and their full traceback to its location in your code.
+**NOTE**: You can also view errors and their full traceback to its location in your code.
 
 ![Putty Errors](img/putty-matrix-portal-error.jpg)
 
